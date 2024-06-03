@@ -1,0 +1,30 @@
+{
+  "id": "4532379",
+  "name": "webpack5",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "658035",
+      "name": "钱",
+      "font_class": "qian",
+      "unicode": "e662",
+      "unicode_decimal": 58978
+    },
+    {
+      "icon_id": "1311630",
+      "name": "讨论",
+      "font_class": "taolun",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "725731",
+      "name": "用户",
+      "font_class": "yonghu1",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    }
+  ]
+}
