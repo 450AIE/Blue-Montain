@@ -12,12 +12,14 @@ import "@/styles/darkTheme.css"
 import "@/styles/font/iconfont.css"
 // import globalConfig from '../global.config.js'
 import i18n from '@/language/index.js'
+import eventBus from 'vue3-eventbus'
 
 const app = createApp(App)
 // app.config.globalProperties.$globalConfig = globalConfig.value
 app.use(createPinia().use(PiniaPersistPlugin))
 app.use(i18n)
 app.use(router)
+app.use(eventBus)
 app.use(directivesPlugin)
 app.mount('#app')
 

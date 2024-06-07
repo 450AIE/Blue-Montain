@@ -6,6 +6,7 @@ import GalItem from '@/component/galItem.vue'
 import { searchKindOfGalAPI } from '@/api/searchGalgame.js'
 import {ref,onMounted} from 'vue'
 import GalCardColumn from '@/component/galCardColumn.vue'
+import SortSubBanner from '@/views/Sort/component/SortSubBanner.vue'
 
 const route = useRoute()
 const galStore = useGalgameListStore()
@@ -13,13 +14,6 @@ const suspenseGalList = ref([])
 const loveGalList = ref([])
 const loopGalList = ref([])
 
-const suspenseGalElement = ref(null)
-const infiniteLoopGalElement = ref(null)
-const loveGalElement = ref(null)
-
-let suspenseGalElementHeight = 0
-let infiniteLoopGalElementHeight = 0
-let loveGalElementHeight = 0
 
 const getSuspenseGalList = async()=>{
   const res = await searchKindOfGalAPI('悬疑')
@@ -36,18 +30,9 @@ const getLoopGalList = async()=>{
 getSuspenseGalList()
 getLoveGalList()
 getLoopGalList()
-const subNavMove = (height)=>{
-  console.log(height)
-  document.documentElement.scrollTop=height
-}
 // 实验用户获取信息
 // const userStore = useUserStore()
 // userStore.getUserInfo({})
-onMounted(()=>{
-  suspenseGalElementHeight = suspenseGalElement.value.$el.getBoundingClientRect().top+document.documentElement.scrollTop
-  infiniteLoopGalElementHeight = infiniteLoopGalElement.value.$el.getBoundingClientRect().top+document.documentElement.scrollTop
-  loveGalElementHeight = loveGalElement.value.$el.getBoundingClientRect().top+document.documentElement.scrollTop
-})
 
 </script>
 
@@ -63,23 +48,24 @@ onMounted(()=>{
     </div>
 <!--    没有查询默认进入这里-->
     <div v-else>
-      <gal-item :title="$t('sort.suspenseGal')" ref="suspenseGalElement">
+      <gal-item :title="$t('sort.suspenseGal')"  id="suspense">
         <gal-card-column :galgame="gal" v-for="gal in suspenseGalList" :key="gal.book_id" class="galcard"></gal-card-column>
       </gal-item>
-      <gal-item :title="$t('sort.infiniteLoopGal')" ref="infiniteLoopGalElement">
+      <gal-item :title="$t('sort.infiniteLoopGal')" id="infinite" >
         <gal-card-column :galgame="gal" v-for="gal in loopGalList" :key="gal.book_id" class="galcard"></gal-card-column>
       </gal-item>
-      <gal-item :title="$t('sort.loveGal')" ref="loveGalElement">
+      <gal-item :title="$t('sort.loveGal')" id="love">
         <gal-card-column :galgame="gal" v-for="gal in loveGalList" :key="gal.book_id" class="galcard"></gal-card-column>
       </gal-item>
     </div>
     <div class="sub-nav" v-show="!route.query.kind">
       <ul>
-        <li @click="subNavMove(suspenseGalElementHeight)">{{$t('sort.suspenseGal')}}</li>
-        <li @click="subNavMove(infiniteLoopGalElementHeight)">{{$t('sort.infiniteLoopGal')}}</li>
-        <li @click="subNavMove(loveGalElementHeight)">{{$t('sort.loveGal')}}</li>
+        <li><a href="#suspense">{{$t('sort.suspenseGal')}}</a></li>
+        <li><a href="#infinite">{{$t('sort.infiniteLoopGal')}}</a></li>
+        <li><a href="#love">{{$t('sort.loveGal')}}</a></li>
       </ul>
     </div>
+    <SortSubBanner :list="galStore.galgameList"></SortSubBanner>
   </section>
 </template>
 

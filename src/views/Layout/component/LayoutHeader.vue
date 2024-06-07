@@ -3,6 +3,7 @@ import {ref} from 'vue'
 import { useRouter } from 'vue-router'
 import { useGalgameListStore } from '@/store/galgame.js'
 import globalData from '../../../../global.config.js'
+import bus from '@/utils/bus.js'
 const searchInp = ref('')
 const galStore = useGalgameListStore()
 const router = useRouter()
@@ -19,19 +20,39 @@ const search = async()=>{
 
 const bottomBar = ref(null)
 const home = ref(null)
+const rank = ref(null)
+const sort = ref(null)
+const myself = ref(null)
+
 const bottomBarMove = (e)=>{
   bottomBar.value.style.left = (e.target.getBoundingClientRect().left+document.documentElement.scrollLeft) + 'px'
   let width = 0
+  globalData.value.headerActiveIndex = e.target.dataset.id
   if(globalData.value.Language==='en'){
-    if(e.target.dataset.id==='1') width=73
-    else if(e.target.dataset.id==='2') width=60
-    else if(e.target.dataset.id==='3') width=50
+    if(globalData.value.headerActiveIndex==='1') width=73
+    else if(globalData.value.headerActiveIndex==='2') width=60
+    else if(globalData.value.headerActiveIndex==='3') width=50
     else width=79
   }else if(globalData.value.Language==='zh'){
     width=50
   }
   bottomBar.value.style.width = width +'px'
 }
+
+
+const changeTheBarBottom = ()=>{
+    if(globalData.value.headerActiveIndex==='1'){
+      home.value?.$.vnode.el?.click()
+    }else if(globalData.value.headerActiveIndex==='2'){
+      rank.value?.$.vnode.el?.click()
+    }else if(globalData.value.headerActiveIndex==='3'){
+      sort.value?.$.vnode.el?.click()
+    }else{
+      myself.value?.$.vnode.el?.click()
+    }
+ }
+bus.on('changeLanguage',changeTheBarBottom)
+
 const redoBottomBar = ()=>{
   home.value?.$.vnode.el?.click()
 }
@@ -42,9 +63,9 @@ const redoBottomBar = ()=>{
   <ul class="sort">
     <li><h1><router-link to="/home" @click="redoBottomBar">{{$t('header.title')}}</router-link></h1></li>
     <li><router-link to="/home"  @click="bottomBarMove" data-id="1" ref="home">{{$t('header.home')}}</router-link></li>
-    <li><router-link to="/rank"  @click="bottomBarMove" data-id="2">{{$t('header.rank')}}</router-link></li>
-    <li><router-link to="/sort"  @click="bottomBarMove" data-id="3">{{$t('header.sort')}}</router-link></li>
-    <li><router-link to="/myself"  @click="bottomBarMove" data-id="4">{{$t('header.myself')}}</router-link></li>
+    <li><router-link to="/rank"  @click="bottomBarMove" data-id="2" ref="rank">{{$t('header.rank')}}</router-link></li>
+    <li><router-link to="/sort"  @click="bottomBarMove" data-id="3" ref="sort">{{$t('header.sort')}}</router-link></li>
+    <li><router-link to="/myself"  @click="bottomBarMove" data-id="4" ref="myself">{{$t('header.myself')}}</router-link></li>
     <li>
       <el-input
         v-model="searchInp"

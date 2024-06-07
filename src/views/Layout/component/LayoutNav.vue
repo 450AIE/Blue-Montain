@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { Moon, Sunny } from '@element-plus/icons-vue'
 import globalConfig from '../../../../global.config.js'
 import { useI18n } from 'vue-i18n'
+import bus from '@/utils/bus.js'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -11,10 +12,15 @@ const QuitLogin =()=>{
   userStore.userInfo.value={}
   router.replace('/login')
 }
+
+
 const changeLanguage = (val)=> {
   localStorage.setItem('language', val)
   locale.value=val
+  bus.emit('changeLanguage',null)
 }
+
+
 const {locale} = useI18n()
 </script>
 
