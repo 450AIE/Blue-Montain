@@ -6,7 +6,10 @@ import { useGalgameListStore } from '@/store/galgame.js'
 import RankPre from '@/views/Rank/component/RankPre.vue'
 import GalItem from '@/component/galItem.vue'
 import GalCard from '@/component/galCardColumn.vue'
+import LayoutFixed from '@/views/Layout/component/LayoutFixed.vue'
 
+const galitem = ref(null)
+const galitemHeigh = ref(0)
 const galgameListStore = useGalgameListStore()
 const preThree = ref([])
 // // 取出分数最高的前三名
@@ -49,10 +52,12 @@ onMounted(()=>{
     ]
   };
   myChart.setOption(option)
+  galitemHeigh.value = galitem.value.$el.getBoundingClientRect().top+document.documentElement.scrollTop
 })
 </script>
 
 <template>
+  <layout-fixed :show-height="galitemHeigh"></layout-fixed>
 <section class="w">
   <div class="pre-three">
     <div class="rank">
@@ -60,7 +65,7 @@ onMounted(()=>{
     </div>
     <div ref="chart" class="chart"></div>
   </div>
-  <gal-item :title="$t('rank.moreGal')" >
+  <gal-item :title="$t('rank.moreGal')" ref="galitem">
     <gal-card :galgame="item" v-for="item in galgameListStore.galgameList" :key="item.book_id" class="one-gal"></gal-card>
   </gal-item>
 </section>

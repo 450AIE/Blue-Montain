@@ -91,5 +91,10 @@ export default {
     Fri:'周五',
     Sat:'周六',
     Sun:'周日'
+  },
+  components:{
+    galCardColumn:{
+      averageScore:'平均分数'
+    }
   }
 }

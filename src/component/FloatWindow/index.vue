@@ -34,8 +34,8 @@ onMounted(()=>{
   floatWindow.setOption(option)
 })
 const moveTheEcharts = (e=>{
-  const oldDivLeft = container.value.getBoundingClientRect().left
-  const oldDivTop  = container.value.getBoundingClientRect().top
+  const oldDivLeft = container.value.getBoundingClientRect().left+document.documentElement.scrollLeft
+  const oldDivTop  = container.value.getBoundingClientRect().top+document.documentElement.scrollTop
   const oldMouseLeft = e.pageX
   const oldMouseTop = e.pageY
   let changeX = 0

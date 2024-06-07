@@ -25,9 +25,9 @@ const props = defineProps({
         <img v-img-lazy="props.galgame.cover" alt="" class="cover">
       </div>
       <div class="right">
-        <h4>{{props.galgame.name}}</h4>
+        <h2 class="title">{{props.galgame.name}}</h2>
         <span>{{props.galgame.publish_time}}</span>
-        <p>{{props.galgame.score}}</p>
+        <p class="score">{{props.galgame.score}}</p>
       </div>
       </div>
     </template>
@@ -35,6 +35,14 @@ const props = defineProps({
 </template>
 
 <style scoped>
+.score {
+  margin-left: 20px;
+  margin-top: 20px;
+}
+.title {
+  text-align: left;
+  margin-left: 40px;
+}
 .out {
   display: flex;
   justify-content: space-around;

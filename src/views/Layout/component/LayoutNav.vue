@@ -86,7 +86,7 @@ const {locale} = useI18n()
 </template>
 <style scoped>
 .top-nav {
-  width: 100%;
+  width: 1640px;
   background-color: #333333;
 }
 .top-nav ul {

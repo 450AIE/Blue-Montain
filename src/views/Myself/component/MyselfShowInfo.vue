@@ -49,6 +49,7 @@ const shitfPage = (val)=>{
         <gal-card-column
           width="288"
           height="200"
+          h-rate="0.65"
           :galgame="gal" v-for="gal in galStore.galgameList.filter((item,idx)=>idx>=curPage*3&&idx<nextPage*3)"
           :key="gal.book_id"
           class="one-gal"

@@ -91,5 +91,10 @@ export default {
       Sat:'Sat',
       Sun:'Sun'
     }
+    },
+  components:{
+    galCardColumn:{
+      averageScore:'average score'
+    }
   }
 }
