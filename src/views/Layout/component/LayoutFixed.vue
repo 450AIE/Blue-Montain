@@ -1,5 +1,7 @@
 <script setup>
 import {ref} from 'vue'
+import bus from '@/utils/bus.js'
+import globalData from '../../../../global.config.js'
 const props = defineProps({
   // 这个是设置页面往下滑动多少时显示导航栏
   showHeight:{
@@ -14,11 +16,22 @@ window.addEventListener('scroll',()=>{
   if(nowDown>=props.showHeight) fixedNav.value.style.top='0px'
   else fixedNav.value.style.top='-80px'
 })
+const barBottom = ref(null)
+const changeBarBottom = ()=>{
+  if(globalData.value.Language==='zh'){
+    barBottom.value.style.left='700px'
+  }else{
+    barBottom.value.style.left='750px'
+  }
+}
+
+bus.on('changeLanguage',changeBarBottom)
+
 </script>
 
 <template>
   <div class="out" ref="fixedNav">
-    <div class="bottom-bar"></div>
+    <div class="bottom-bar" ref="barBottom"></div>
     <ul>
       <li><router-link to="/home"><h1 class="title">{{$t('header.title')}}</h1></router-link></li>
       <li><router-link to="/home">{{$t('header.home')}}</router-link></li>

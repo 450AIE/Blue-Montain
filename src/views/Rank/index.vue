@@ -7,6 +7,7 @@ import RankPre from '@/views/Rank/component/RankPre.vue'
 import GalItem from '@/component/galItem.vue'
 import GalCard from '@/component/galCardColumn.vue'
 import LayoutFixed from '@/views/Layout/component/LayoutFixed.vue'
+import bus from '@/utils/bus.js'
 
 const galitem = ref(null)
 const galitemHeigh = ref(0)
@@ -15,6 +16,9 @@ const preThree = ref([])
 // // 取出分数最高的前三名
 preThree.value = galgameListStore.getPreNrank(3)
 const chart = ref(null)
+
+
+
 onMounted(()=>{
   const myChart = echarts.init(chart.value);
   const option = {

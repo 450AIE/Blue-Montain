@@ -1,5 +1,5 @@
 <script setup>
-import {ref} from 'vue'
+import {ref,onMounted} from 'vue'
 import { useRouter } from 'vue-router'
 import { useGalgameListStore } from '@/store/galgame.js'
 import globalData from '../../../../global.config.js'
@@ -25,7 +25,9 @@ const sort = ref(null)
 const myself = ref(null)
 
 const bottomBarMove = (e)=>{
+  console.log(e.target)
   bottomBar.value.style.left = (e.target.getBoundingClientRect().left+document.documentElement.scrollLeft) + 'px'
+  console.log(bottomBar.value.style.left)
   let width = 0
   globalData.value.headerActiveIndex = e.target.dataset.id
   if(globalData.value.Language==='en'){
@@ -39,17 +41,43 @@ const bottomBarMove = (e)=>{
   bottomBar.value.style.width = width +'px'
 }
 
+onMounted(()=>{
+  if(globalData.value.Language==='zh'){
+    bottomBar.value.style.left='467px'
+    bottomBar.value.style.width='50px'
+  }
+})
 
 const changeTheBarBottom = ()=>{
+  if(globalData.value.Language==='zh'){
     if(globalData.value.headerActiveIndex==='1'){
       home.value?.$.vnode.el?.click()
+      bottomBar.value.style.left='467px'
     }else if(globalData.value.headerActiveIndex==='2'){
       rank.value?.$.vnode.el?.click()
+      bottomBar.value.style.left='617px'
     }else if(globalData.value.headerActiveIndex==='3'){
       sort.value?.$.vnode.el?.click()
+      bottomBar.value.style.left='767px'
     }else{
       myself.value?.$.vnode.el?.click()
+      bottomBar.value.style.left='917px'
     }
+  }else if(globalData.value.Language==='en'){
+    if(globalData.value.headerActiveIndex==='1'){
+      home.value?.$.vnode.el?.click()
+      bottomBar.value.style.left='508px'
+    }else if(globalData.value.headerActiveIndex==='2'){
+      rank.value?.$.vnode.el?.click()
+      bottomBar.value.style.left='681px'
+    }else if(globalData.value.headerActiveIndex==='3'){
+      sort.value?.$.vnode.el?.click()
+      bottomBar.value.style.left='840px'
+    }else{
+      myself.value?.$.vnode.el?.click()
+      bottomBar.value.style.left='990px'
+    }
+  }
  }
 bus.on('changeLanguage',changeTheBarBottom)
 
